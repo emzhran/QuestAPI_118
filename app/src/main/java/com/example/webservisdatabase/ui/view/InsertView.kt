@@ -22,9 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.webservisdatabase.ui.cutstomwidget.CustomeTopAppBarr
 import com.example.webservisdatabase.ui.navigasi.DestinasiNavigasi
-import com.example.webservisdatabase.ui.viewmodel.HomeViewModel
 import com.example.webservisdatabase.ui.viewmodel.InsertUiEvent
-import com.example.webservisdatabase.ui.viewmodel.InsertUiSate
+import com.example.webservisdatabase.ui.viewmodel.InsertUiState
 import com.example.webservisdatabase.ui.viewmodel.InsertViewModel
 import com.example.webservisdatabase.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
@@ -45,7 +44,7 @@ fun EntryMhsScreen(
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CustomeTopAppBarr(
                 title = DestinasiEntry.titleRes,
@@ -56,7 +55,7 @@ fun EntryMhsScreen(
         }
     ) { innerpadding->
         EntryBody(
-            insertUiSate = viewModel.uiSate,
+            insertUiState = viewModel.uiState,
             onSiswaValueChange = viewModel::updateInsertMhsState,
             onSaveClick = {
                 coroutineScope.launch {
@@ -74,7 +73,7 @@ fun EntryMhsScreen(
 
 @Composable
 fun EntryBody(
-    insertUiSate: InsertUiSate,
+    insertUiState: InsertUiState,
     onSiswaValueChange: (InsertUiEvent)->Unit,
     onSaveClick:()->Unit,
     modifier: Modifier = Modifier
@@ -84,7 +83,7 @@ fun EntryBody(
         modifier = Modifier.padding(12.dp)
     ) {
         FormInput(
-            insertUiEvent = insertUiSate.insertUiEvent,
+            insertUiEvent = insertUiState.insertUiEvent,
             onValueChange = onSiswaValueChange,
             modifier = Modifier.fillMaxWidth()
         )
@@ -108,9 +107,17 @@ fun FormInput(
     enabled: Boolean = true
 ){
     Column(
-        modifier = Modifier,
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        OutlinedTextField(
+            value = insertUiEvent.nama,
+            onValueChange = {onValueChange(insertUiEvent.copy(nama = it))},
+            label = { Text("Nama") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
         OutlinedTextField(
             value = insertUiEvent.nama,
             onValueChange = {onValueChange(insertUiEvent.copy(nama = it))},

@@ -10,17 +10,17 @@ import com.example.webservisdatabase.repository.MahasiswaRepository
 import kotlinx.coroutines.launch
 
 class InsertViewModel (private val mhs: MahasiswaRepository):ViewModel(){
-    var uiSate by mutableStateOf(InsertUiSate())
+    var uiState by mutableStateOf(InsertUiState())
         private set
 
     fun updateInsertMhsState(insertUiEvent: InsertUiEvent){
-        uiSate = InsertUiSate(insertUiEvent = insertUiEvent)
+        uiState = InsertUiState(insertUiEvent = insertUiEvent)
     }
 
     suspend fun insertMhs(){
         viewModelScope.launch {
             try {
-                mhs.insertMahasiswa(uiSate.insertUiEvent.toMhs())
+                mhs.insertMahasiswa(uiState.insertUiEvent.toMhs())
             }catch (e:Exception){
                 e.printStackTrace()
             }
@@ -29,7 +29,7 @@ class InsertViewModel (private val mhs: MahasiswaRepository):ViewModel(){
 }
 
 
-data class InsertUiSate(
+data class InsertUiState(
     val insertUiEvent : InsertUiEvent = InsertUiEvent()
 )
 
@@ -51,7 +51,7 @@ fun InsertUiEvent.toMhs(): Mahasiswa = Mahasiswa(
     angkatan = angkatan
 )
 
-fun Mahasiswa.toUiStateMhs():InsertUiSate = InsertUiSate(
+fun Mahasiswa.toUiStateMhs():InsertUiState = InsertUiState(
     insertUiEvent = toInsertUiEvent()
 )
 
