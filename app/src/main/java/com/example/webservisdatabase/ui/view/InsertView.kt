@@ -26,6 +26,7 @@ import com.example.webservisdatabase.ui.viewmodel.HomeViewModel
 import com.example.webservisdatabase.ui.viewmodel.InsertUiEvent
 import com.example.webservisdatabase.ui.viewmodel.InsertUiSate
 import com.example.webservisdatabase.ui.viewmodel.InsertViewModel
+import com.example.webservisdatabase.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiEntry: DestinasiNavigasi{
