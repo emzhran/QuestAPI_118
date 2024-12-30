@@ -125,7 +125,7 @@ fun HomeStatus(
 @Composable
 fun OnLoading(modifier: Modifier = Modifier){
     Image(
-        modifier = Modifier.size(200.dp),
+        modifier = modifier.size(200.dp),
         painter = painterResource(R.drawable.loading),
         contentDescription = stringResource(R.string.loading)
     )
@@ -134,7 +134,7 @@ fun OnLoading(modifier: Modifier = Modifier){
 @Composable
 fun OnError(retryAction:()->Unit, modifier: Modifier = Modifier){
     Column(
-        modifier = Modifier,
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -182,7 +182,7 @@ fun MhsCard(
     onDeleteCLick:(Mahasiswa)-> Unit ={}
 ){
     Card(
-        modifier = Modifier,
+        modifier = modifier,
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
